@@ -1,7 +1,7 @@
-import prisma from '../prismadb';
+const prisma = require('../prismadb.js');
 
 module.exports = {
-    createUser: async ({ name, email, password }) => {
+    createUser: async (name, email, password) => {
         try {
             const user = await prisma.user.create({
                 data: {
@@ -48,12 +48,11 @@ module.exports = {
             return null;
         }
     },
-    deleteUser: async (id, password) => {
+    deleteUser: async (id) => {
         try {
             const user = await prisma.user.delete({
                 where: {
                     id: id,
-                    password: password,
                 }
             })
             return user;
