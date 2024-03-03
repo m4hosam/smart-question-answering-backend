@@ -8,7 +8,19 @@ const prisma = new PrismaClient()
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
+const logger = (req, res, next) => {
+    console.log('Logged');
+    next();
+}
 
+const authenticate = (req, res, next) => {
+    // authenticate user 
+    console.log('Authenticating');
+    next();
+}
+
+app.use(logger);
+app.use(authenticate);
 app.get('/', (req, res) => {
     res.send('Hello, World!');
 });

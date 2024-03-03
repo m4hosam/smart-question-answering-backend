@@ -21,7 +21,7 @@ To install the ExpressJS app and its dependencies, follow these steps:
 
    ```
 
-2. install the dependancies using
+2. install the dependencies using
    ```bash
     npm install
    ```
