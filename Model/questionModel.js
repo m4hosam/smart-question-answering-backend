@@ -5,9 +5,9 @@ module.exports = {
         try {
             const newQuestion = await prisma.question.create({
                 data: {
-                    user_id,
                     question,
-                    category
+                    category,
+                    user: { connect: { id: user_id } },
                 }
             })
             return newQuestion;
