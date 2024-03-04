@@ -1,7 +1,7 @@
-import prisma from '../prismadb';
+const prisma = require('../prismadb');
 
 module.exports = {
-    createQuestion: async (user_id, question, category) => {
+    createQuestionDB: async (user_id, question, category) => {
         try {
             const newQuestion = await prisma.question.create({
                 data: {
@@ -17,7 +17,7 @@ module.exports = {
             return null;
         }
     },
-    readQuestion: async (id) => {
+    readQuestionDB: async (id) => {
         try {
             const question = await prisma.question.findUnique({
                 where: {
@@ -31,7 +31,7 @@ module.exports = {
             return null;
         }
     },
-    updateQuestionText: async (id, question) => {
+    updateQuestionTextDB: async (id, question) => {
         try {
             const updatedQuestion = await prisma.question.update({
                 where: {
@@ -48,7 +48,7 @@ module.exports = {
             return null;
         }
     },
-    updateQuestionCategory: async (id, category) => {
+    updateQuestionCategoryDB: async (id, category) => {
         try {
             const updatedQuestion = await prisma.question.update({
                 where: {
@@ -65,7 +65,7 @@ module.exports = {
             return null;
         }
     },
-    updateQuestionStatus: async (id, status) => {
+    updateQuestionStatusDB: async (id, status) => {
         try {
             const updatedQuestion = await prisma.question.update({
                 where: {
@@ -82,7 +82,7 @@ module.exports = {
             return null;
         }
     },
-    deleteQuestion: async (id) => {
+    deleteQuestionDB: async (id) => {
         try {
             const deletedQuestion = await prisma.question.delete({
                 where: {

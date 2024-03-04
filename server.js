@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const userRoute = require('./Routes/userRoute.js');
+const questionRoute = require('./Routes/questionRoute.js');
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/user', userRoute);
+app.use('/question', questionRoute);
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');

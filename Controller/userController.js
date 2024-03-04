@@ -1,5 +1,5 @@
 const { createUser, readUser, updateUserName, deleteUser } = require('../Model/userModel.js');
-
+const jwt = require('jsonwebtoken');
 
 module.exports = {
     createUser_c: async (req, res) => {
@@ -20,7 +20,7 @@ module.exports = {
             if (!user) {
                 return res.status(400).send("Error in creating User in DB. Please try again")
             }
-
+            user["token"] = jwt.sign({ id: user.id, email: user.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' })
             return res.json(user)
         }
         catch (err) {
