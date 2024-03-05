@@ -1,4 +1,4 @@
-const { createUser, readUser, updateUserName, deleteUser } = require('../Model/userModel.js');
+const { createUser, readUser, readUserByEmail, updateUserName, deleteUser } = require('../Model/userModel.js');
 const jwt = require('jsonwebtoken');
 
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
                 return res.status(400).send("Please provide all details")
             }
             // Check if email already exists
-            const userExists = await readUser(email)
+            const userExists = await readUserByEmail(email)
             if (userExists) {
                 return res.status(400).send("User already exists")
             }
@@ -20,7 +20,7 @@ module.exports = {
             if (!user) {
                 return res.status(400).send("Error in creating User in DB. Please try again")
             }
-            user["token"] = jwt.sign({ id: user.id, email: user.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' })
+            user["token"] = jwt.sign({ id: user.id, email: user.email, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' })
             return res.json(user)
         }
         catch (err) {
@@ -38,6 +38,8 @@ module.exports = {
             if (!user) {
                 return res.status(404).send("User not found")
             }
+            user["token"] = jwt.sign({ id: user.id, email: user.email, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' })
+
             return res.json(user)
         }
         catch (err) {

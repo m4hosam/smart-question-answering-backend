@@ -31,6 +31,20 @@ module.exports = {
             return null;
         }
     },
+    readUserByEmail: async (email) => {
+        try {
+            const user = await prisma.user.findUnique({
+                where: {
+                    email: email,
+                }
+            })
+            return user;
+        }
+        catch (err) {
+            console.log("error in readUserByEmail", err);
+            return null;
+        }
+    },
     updateUserName: async (id, name) => {
         try {
             const user = await prisma.user.update({

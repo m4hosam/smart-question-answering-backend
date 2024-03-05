@@ -1,12 +1,15 @@
 const express = require("express");
-const { createQuestion } = require("../Controller/questionController.js");
-const authenticateToken = require('../Middleware/authenticateToken')
+const { createQuestion,
+    readQuestion,
+    updateQuestionText,
+    deleteQuestion } = require("../Controller/questionController.js");
+const { authenticateToken } = require('../Middleware/authenticateToken')
 const router = express.Router();
 
 router.post("/", authenticateToken, createQuestion);
-// router.get("/:id", readUser_c);
-// router.put("/:id", updateUserName_c);
-// router.delete("/:id", deleteUser_c);
+router.get("/:id", readQuestion);
+router.put("/:id", authenticateToken, updateQuestionText);
+router.delete("/:id", authenticateToken, deleteQuestion);
 
 
 module.exports = router;
