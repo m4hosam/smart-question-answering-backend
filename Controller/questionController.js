@@ -78,7 +78,7 @@ module.exports = {
                 return res.status(404).send("Question to be updated not found")
             }
             // check if user is authorized to update the question
-            if (questionDB.userId !== req.user.id) {
+            if (req.user.role !== 'teacher') {
                 return res.status(403).send("You are not authorized to update this question")
             }
             const updatedQuestion = await updateQuestionCategoryDB(id, category)
@@ -103,7 +103,7 @@ module.exports = {
                 return res.status(404).send("Question to be updated not found")
             }
             // check if user is authorized to update the question
-            if (questionDB.userId !== req.user.id) {
+            if (req.user.role !== 'teacher') {
                 return res.status(403).send("You are not authorized to update this question")
             }
             const updatedQuestion = await updateQuestionStatusDB(id, status)

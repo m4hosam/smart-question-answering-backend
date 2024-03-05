@@ -1,13 +1,22 @@
-import prisma from '../prismadb';
+const prisma = require('../prismadb');
 
 module.exports = {
-    createAnswer: async (user_id, question_id, answer) => {
+    createAnswerDB: async (user_id, question_id, answer) => {
         try {
             const newAnswer = await prisma.answer.create({
                 data: {
-                    user_id,
-                    question_id,
-                    answer
+                    answer,
+                    user: { connect: { id: user_id } },
+                    question: { connect: { id: question_id } },
+                }
+            })
+            // update question status to answered
+            await prisma.question.update({
+                where: {
+                    id: question_id,
+                },
+                data: {
+                    status: "answered",
                 }
             })
             return newAnswer;
@@ -17,7 +26,7 @@ module.exports = {
             return null;
         }
     },
-    readAnswer: async (id) => {
+    readAnswerDB: async (id) => {
         try {
             const answer = await prisma.answer.findUnique({
                 where: {
@@ -31,7 +40,7 @@ module.exports = {
             return null;
         }
     },
-    updateAnswer: async (id, answer) => {
+    updateAnswerDB: async (id, answer) => {
         try {
             const updatedAnswer = await prisma.answer.update({
                 where: {
@@ -48,7 +57,7 @@ module.exports = {
             return null;
         }
     },
-    deleteAnswer: async (id) => {
+    deleteAnswerDB: async (id) => {
         try {
             const answer = await prisma.answer.delete({
                 where: {
