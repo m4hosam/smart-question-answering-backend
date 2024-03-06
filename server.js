@@ -1,4 +1,5 @@
 const express = require('express');
+var cors = require('cors');
 const bodyParser = require('body-parser');
 const userRoute = require('./Routes/userRoute.js');
 const questionRoute = require('./Routes/questionRoute.js');
@@ -8,7 +9,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(cors());
 
 // const authenticate = (req, res, next) => {
 //     // authenticate user 

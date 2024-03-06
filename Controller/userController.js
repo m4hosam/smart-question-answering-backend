@@ -1,4 +1,8 @@
-const { createUser, readUser, readUserByEmail, updateUserName, deleteUser } = require('../Model/userModel.js');
+const { createUser,
+    readUser,
+    readUserByEmail,
+    updateUserName,
+    deleteUser } = require('../Model/userModel.js');
 const jwt = require('jsonwebtoken');
 
 module.exports = {
@@ -34,9 +38,34 @@ module.exports = {
             if (!id) {
                 return res.status(400).send("Please provide id")
             }
-            const user = await readUser(id)
+            // id is email here ***
+            const user = await readUserByEmail(id)
             if (!user) {
                 return res.status(404).send("User not found")
+            }
+            user["token"] = jwt.sign({ id: user.id, email: user.email, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' })
+
+            return res.json(user)
+        }
+        catch (err) {
+            return res.status(500).send(err)
+        }
+    },
+    loginUser_c: async (req, res) => {
+        try {
+            const email = req.body.email
+            const password = req.body.password
+            // Check if email and password is provided
+            if (!email || !password) {
+                return res.status(400).send("Please provide email and password")
+            }
+            const user = await readUserByEmail(email)
+            if (!user) {
+                return res.status(404).send("User not found, sign up instead")
+            }
+            // if password is incorrect
+            if (user.password !== password) {
+                return res.status(403).send("Password is incorrect")
             }
             user["token"] = jwt.sign({ id: user.id, email: user.email, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' })
 
