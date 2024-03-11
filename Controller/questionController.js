@@ -1,5 +1,7 @@
 const { createQuestionDB,
     readQuestionDB,
+    readAllQuestions,
+    readUserQuestions,
     updateQuestionTextDB,
     updateQuestionCategoryDB,
     updateQuestionStatusDB,
@@ -36,6 +38,32 @@ module.exports = {
                 return res.status(404).send("Question not found")
             }
             return res.json(question)
+        }
+        catch (err) {
+            return res.status(500).send(err)
+        }
+    },
+    readAllQuestions: async (req, res) => {
+        try {
+            const questions = await readAllQuestions()
+            if (!questions) {
+                return res.status(404).send("No questions found")
+            }
+            return res.json(questions)
+        }
+        catch (err) {
+            return res.status(500).send(err)
+        }
+    },
+    readUserQuestions: async (req, res) => {
+        try {
+            const user_id = req.user.id
+            // console.log("Controller: user_id", user_id)
+            const questions = await readUserQuestions(user_id)
+            if (!questions) {
+                return res.status(404).send("No questions found")
+            }
+            return res.json(questions)
         }
         catch (err) {
             return res.status(500).send(err)

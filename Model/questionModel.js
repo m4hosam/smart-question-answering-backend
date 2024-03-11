@@ -31,6 +31,30 @@ module.exports = {
             return null;
         }
     },
+    readAllQuestions: async () => {
+        try {
+            const questions = await prisma.question.findMany();
+            return questions;
+        }
+        catch (err) {
+            console.log("error in readAllQuestions", err);
+            return null;
+        }
+    },
+    readUserQuestions: async (user_id) => {
+        try {
+            const questions = await prisma.question.findMany({
+                where: {
+                    userId: user_id,
+                }
+            })
+            return questions;
+        }
+        catch (err) {
+            console.log("error in readUserQuestions", err);
+            return null;
+        }
+    },
     updateQuestionTextDB: async (id, question) => {
         try {
             const updatedQuestion = await prisma.question.update({
