@@ -2,6 +2,7 @@ const { createQuestionDB,
     readQuestionDB,
     readAllQuestions,
     readUserQuestions,
+    readPendingQuestions,
     updateQuestionTextDB,
     updateQuestionCategoryDB,
     updateQuestionStatusDB,
@@ -63,6 +64,20 @@ module.exports = {
             if (!questions) {
                 return res.status(404).send("No questions found")
             }
+            return res.json(questions)
+        }
+        catch (err) {
+            return res.status(500).send(err)
+        }
+    },
+    readPendingQuesions: async (req, res) => {
+        try {
+            // check if user is authorized to update the answer
+            if (req.user.role !== "teacher") {
+                return res.status(403).send("You are not authorized to read these questions")
+            }
+            // based on teacher role (question category), get all pending questions
+            const questions = await readPendingQuestions()
             return res.json(questions)
         }
         catch (err) {

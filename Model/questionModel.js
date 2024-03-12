@@ -55,6 +55,21 @@ module.exports = {
             return null;
         }
     },
+    readPendingQuestions: async () => {
+        // this is used for teacher to see all pending questions
+        try {
+            const questions = await prisma.question.findMany({
+                where: {
+                    status: "pending answer",
+                }
+            })
+            return questions;
+        }
+        catch (err) {
+            console.log("error in readPendingQuestions", err);
+            return null;
+        }
+    },
     updateQuestionTextDB: async (id, question) => {
         try {
             const updatedQuestion = await prisma.question.update({
