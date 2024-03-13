@@ -33,7 +33,11 @@ module.exports = {
     },
     readAllQuestions: async () => {
         try {
-            const questions = await prisma.question.findMany();
+            const questions = await prisma.question.findMany({
+                include: {
+                    Answer: true,
+                }
+            });
             return questions;
         }
         catch (err) {
@@ -46,6 +50,9 @@ module.exports = {
             const questions = await prisma.question.findMany({
                 where: {
                     userId: user_id,
+                },
+                include: {
+                    Answer: true,
                 }
             })
             return questions;
