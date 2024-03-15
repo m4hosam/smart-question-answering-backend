@@ -1,9 +1,9 @@
 const express = require('express');
 var cors = require('cors');
 const bodyParser = require('body-parser');
-const userRoute = require('./Routes/userRoute.js');
-const questionRoute = require('./Routes/questionRoute.js');
-const answerRoute = require('./Routes/answerRoute.js');
+const userRoute = require('./src/Routes/userRoute.js');
+const questionRoute = require('./src/Routes/questionRoute.js');
+const answerRoute = require('./src/Routes/answerRoute.js');
 
 const app = express();
 
