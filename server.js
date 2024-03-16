@@ -21,7 +21,7 @@ app.use(cors());
 
 
 app.get('/', (req, res) => {
-    res.send('Hello, World!');
+    res.send('Smart Question Answer API is running!');
 });
 
 app.use('/user', userRoute);

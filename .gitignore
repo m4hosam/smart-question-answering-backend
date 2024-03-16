@@ -1,2 +1,7 @@
 node_modules
 .env
+js
+css
+index.html
+postman_doc_gen.exe
+smart-q-a.postman_collection.json
