@@ -31,11 +31,22 @@ module.exports = {
             return null;
         }
     },
-    readUserByEmail: async (email) => {
+    readAllUsers: async () => {
+        try {
+            // don't select user password
+            const users = await prisma.user.findMany();
+            return users;
+        }
+        catch (err) {
+            console.log("error in readAllUsers", err);
+            return null;
+        }
+    },
+    readUserById: async (user_id) => {
         try {
             const user = await prisma.user.findUnique({
                 where: {
-                    email: email,
+                    id: user_id,
                 }
             })
             return user;

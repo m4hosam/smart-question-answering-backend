@@ -1,6 +1,7 @@
 const { createUser,
     readUser,
-    readUserByEmail,
+    readAllUsers,
+    readUserById,
     updateUserName,
     deleteUser } = require('../Model/userModel.js');
 const jwt = require('jsonwebtoken');
@@ -39,13 +40,25 @@ module.exports = {
                 return res.status(400).send("Please provide id")
             }
             // id is email here ***
-            const user = await readUserByEmail(id)
+            const user = await readUserById(id)
             if (!user) {
                 return res.status(404).send("User not found")
             }
             user["token"] = jwt.sign({ id: user.id, email: user.email, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' })
 
             return res.json(user)
+        }
+        catch (err) {
+            return res.status(500).send(err)
+        }
+    },
+    readAllUsers_c: async (req, res) => {
+        try {
+            const users = await readAllUsers()
+            if (!users) {
+                return res.status(404).send("No users found")
+            }
+            return res.json(users)
         }
         catch (err) {
             return res.status(500).send(err)
