@@ -3,7 +3,7 @@ const { createUser,
     readAllUsers,
     readUserById,
     readUserByEmail,
-    updateUserName,
+    updateUser,
     deleteUser } = require('../Model/userModel.js');
 const jwt = require('jsonwebtoken');
 
@@ -89,15 +89,18 @@ module.exports = {
             return res.status(500).send(err)
         }
     },
-    updateUserName_c: async (req, res) => {
+    updateUser_c: async (req, res) => {
         try {
             const id = req.params.id
             const name = req.body.name
+            const email = req.body.email
+            const role = req.body.role
+            // console.log("Controller: id, name, email, role", id, name, email, role)
             // Check if id and name is provided
             if (!id || !name) {
                 return res.status(400).send("Please provide id and name")
             }
-            const user = await updateUserName(id, name)
+            const user = await updateUser(id, name, email, role)
             if (!user) {
                 return res.status(400).send("Error in updating User in DB. Please try again")
             }

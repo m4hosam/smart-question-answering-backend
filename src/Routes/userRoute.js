@@ -1,5 +1,5 @@
 const express = require("express");
-const { createUser_c, readUser_c, readAllUsers_c, loginUser_c, updateUserName_c, deleteUser_c } = require("../Controller/userController.js");
+const { createUser_c, readUser_c, readAllUsers_c, loginUser_c, updateUser_c, deleteUser_c } = require("../Controller/userController.js");
 const { authenticateAdmin } = require("../Middleware/authenticateToken.js");
 const router = express.Router();
 
@@ -17,8 +17,8 @@ router.post("/login", loginUser_c);
 // Gets a user from the database by its id
 router.get("/:id", readUser_c);
 
-// Updates a user's name in the database
-router.put("/:id", updateUserName_c);
+// Updates a user's name in the database Only Admin
+router.put("/:id", authenticateAdmin, updateUser_c);
 
 // Deletes a user from the database
 router.delete("/:id", deleteUser_c);

@@ -70,7 +70,7 @@ module.exports = {
             return null;
         }
     },
-    updateUserName: async (id, name) => {
+    updateUser: async (id, name, email, role) => {
         try {
             const user = await prisma.user.update({
                 where: {
@@ -78,6 +78,8 @@ module.exports = {
                 },
                 data: {
                     name,
+                    email,
+                    role
                 }
             })
             return user;
