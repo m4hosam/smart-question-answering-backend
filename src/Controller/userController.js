@@ -2,6 +2,7 @@ const { createUser,
     readUser,
     readAllUsers,
     readUserById,
+    readUserByEmail,
     updateUserName,
     deleteUser } = require('../Model/userModel.js');
 const jwt = require('jsonwebtoken');
