@@ -31,7 +31,7 @@ module.exports = {
             return null;
         }
     },
-    readAllQuestions: async () => {
+    readAllQuestionsDB: async () => {
         try {
             const questions = await prisma.question.findMany({
                 include: {
@@ -45,7 +45,7 @@ module.exports = {
             return null;
         }
     },
-    readUserQuestions: async (user_id) => {
+    readUserQuestionsDB: async (user_id) => {
         try {
             const questions = await prisma.question.findMany({
                 where: {
@@ -62,7 +62,7 @@ module.exports = {
             return null;
         }
     },
-    readPendingQuestions: async () => {
+    readPendingQuestionsDB: async () => {
         // this is used for teacher to see all pending questions
         try {
             const questions = await prisma.question.findMany({
