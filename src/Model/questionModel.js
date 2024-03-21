@@ -130,6 +130,12 @@ module.exports = {
     },
     deleteQuestionDB: async (id) => {
         try {
+            // delete all answers to the question
+            await prisma.answer.deleteMany({
+                where: {
+                    questionId: id,
+                }
+            })
             const deletedQuestion = await prisma.question.delete({
                 where: {
                     id: id,
