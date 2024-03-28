@@ -24,7 +24,7 @@ model User {
 model Question {
     id        String   @id @default(uuid())
     category  String
-    question  String
+    question  String   @db.VarChar(1000)
     status    String   @default("pending answer")
     user      User     @relation(fields: [userId], references: [id])
     userId    String

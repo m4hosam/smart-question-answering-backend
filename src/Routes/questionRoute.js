@@ -6,6 +6,7 @@ const { createQuestion,
     readPendingQuesions,
     updateQuestionText,
     deleteQuestion } = require("../Controller/questionController.js");
+const { createQuestionFromImage } = require("../Controller/uploadQuestionController.js");
 const { authenticateToken } = require('../Middleware/authenticateToken')
 const router = express.Router();
 
@@ -13,6 +14,9 @@ const router = express.Router();
 
 // Creates a question in the database <baseURL/question/>
 router.post("/", authenticateToken, createQuestion);
+
+// Creates a question From image
+router.post("/upload", authenticateToken, createQuestionFromImage);
 
 // Gets all questions from the database
 router.get("/", readAllQuestions);
