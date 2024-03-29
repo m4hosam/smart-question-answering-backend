@@ -8,6 +8,11 @@ module.exports = {
                     name,
                     email,
                     password,
+                }, select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    role: true,
                 }
             })
             return user;
@@ -22,6 +27,12 @@ module.exports = {
             const user = await prisma.user.findUnique({
                 where: {
                     id: id,
+                }, select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    role: true,
+                    createdAt: true,
                 }
             })
             return user;
@@ -34,7 +45,15 @@ module.exports = {
     readAllUsers: async () => {
         try {
             // don't select user password
-            const users = await prisma.user.findMany();
+            const users = await prisma.user.findMany({
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    role: true,
+                    createdAt: true,
+                }
+            });
             return users;
         }
         catch (err) {
@@ -47,6 +66,12 @@ module.exports = {
             const user = await prisma.user.findUnique({
                 where: {
                     id: user_id,
+                }, select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    role: true,
+                    createdAt: true,
                 }
             })
             return user;

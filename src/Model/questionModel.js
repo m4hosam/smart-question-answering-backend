@@ -36,7 +36,10 @@ module.exports = {
             const questions = await prisma.question.findMany({
                 include: {
                     Answer: true,
-                }
+                },
+                orderBy: {
+                    createdAt: 'desc',
+                },
             });
             return questions;
         }
@@ -53,7 +56,10 @@ module.exports = {
                 },
                 include: {
                     Answer: true,
-                }
+                },
+                orderBy: {
+                    createdAt: 'desc',
+                },
             })
             return questions;
         }
@@ -68,7 +74,10 @@ module.exports = {
             const questions = await prisma.question.findMany({
                 where: {
                     status: "pending answer",
-                }
+                },
+                orderBy: {
+                    createdAt: 'desc',
+                },
             })
             return questions;
         }
