@@ -51,7 +51,6 @@ module.exports = {
             // console.log("Q U Controller: Image", image);
             // Optimize the image
             let optimizedImage = await optimizeImageURL(image);
-
             // call the OCR_CLASSIFICATION_API to get question and category from image
             // Prepare form data
             let formData = new FormData();
