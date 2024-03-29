@@ -7,7 +7,7 @@ const answerRoute = require('./src/Routes/answerRoute.js');
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json());
 app.use(cors());
 
