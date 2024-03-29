@@ -1,4 +1,5 @@
 const express = require("express");
+const multer = require('multer');
 const { createQuestion,
     readQuestion,
     readAllQuestions,
@@ -6,8 +7,9 @@ const { createQuestion,
     readPendingQuesions,
     updateQuestionText,
     deleteQuestion } = require("../Controller/questionController.js");
-const { createQuestionFromImage } = require("../Controller/uploadQuestionController.js");
+const { createQuestionFromImageURL, createQuestionFromImageBinary } = require("../Controller/uploadQuestionController.js");
 const { authenticateToken } = require('../Middleware/authenticateToken')
+const upload = multer({ storage: multer.memoryStorage() });
 const router = express.Router();
 
 // Route: baseURL/question/
@@ -15,8 +17,11 @@ const router = express.Router();
 // Creates a question in the database <baseURL/question/>
 router.post("/", authenticateToken, createQuestion);
 
+// Creates a question From image as DataURL
+router.post("/upload", authenticateToken, createQuestionFromImageURL);
+
 // Creates a question From image
-router.post("/upload", authenticateToken, createQuestionFromImage);
+router.post("/image", authenticateToken, upload.single('image'), createQuestionFromImageBinary);
 
 // Gets all questions from the database
 router.get("/", readAllQuestions);
