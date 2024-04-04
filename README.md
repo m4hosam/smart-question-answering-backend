@@ -27,7 +27,6 @@ To install the ExpressJS app and its dependencies, follow these steps:
    ```
 3. Generate prisma client
    ```bash
-   npx prisma db push
    npx prisma generate
    ```
 4. Run the server using NodeJS (nodemon is preferred during development)
