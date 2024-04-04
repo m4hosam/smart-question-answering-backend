@@ -121,6 +121,10 @@ module.exports = {
             const user_id = req.user.id;
             console.log("Q U Controller: user_id", user_id);
 
+            if (!req.file) {
+                return res.status(400).send("Please provide an image file");
+            }
+
             // Optimize the image
             const optimizedImage = await optimizeImage(req.file.buffer);
             // console.log("Q U Controller: optimizedImage", optimizedImage);

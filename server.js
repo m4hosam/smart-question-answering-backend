@@ -10,7 +10,12 @@ const app = express();
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(cors());
-
+app.use(function (req, res, next) {
+    req.setTimeout(70000, function () {
+        // call back function is called when request timed out.
+    });
+    next();
+});
 // const authenticate = (req, res, next) => {
 //     // authenticate user 
 //     console.log('Authenticating');
