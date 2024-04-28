@@ -22,6 +22,9 @@ module.exports = {
             const question = await prisma.question.findUnique({
                 where: {
                     id: id,
+                },
+                include: {
+                    Answer: true,
                 }
             })
             return question;

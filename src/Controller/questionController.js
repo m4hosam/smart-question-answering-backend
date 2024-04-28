@@ -8,16 +8,25 @@ const { createQuestionDB,
     updateQuestionStatusDB,
     deleteQuestionDB } = require('../Model/questionModel');
 
-
+const { findSimilarQuestion } = require('../Model/checkSimilarity');
 
 module.exports = {
     createQuestion: async (req, res) => {
         try {
             // get user_id from auth middleware
             const user_id = req.user.id
-            console.log("Controller: user_id", user_id)
+            // console.log("Controller: user_id", user_id)
             const { question, category } = req.body
             console.log("Controller: question, category", question, category)
+            // Check if question and category are provided
+            if (!question || !category) {
+                return res.status(400).send("Please provide question and category")
+            }
+            // Check if there are similar questions in the database
+            const similarQuestions = await findSimilarQuestion(category, question)
+            if (similarQuestions.length > 0) {
+                return res.status(409).json({ message: "Similar question found", similarQuestions })
+            }
             const new_question = await createQuestionDB(user_id, question, category)
             if (!new_question) {
                 return res.status(400).send("Error in creating question")
