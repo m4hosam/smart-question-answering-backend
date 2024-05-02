@@ -25,7 +25,7 @@ async function findSimilarQuestion(category, question) {
     for (const existingQuestion of existingQuestions) {
         const existingQuestionWords = existingQuestion.question.toLowerCase().split(" ");
         const matchCount = newQuestionWords.filter(word => existingQuestionWords.includes(word)).length;
-        const similarityThreshold = Math.floor(existingQuestionWords.length * 0.8);  // Adjust threshold (0.7 = 70% match)
+        const similarityThreshold = Math.floor(newQuestionWords.length * 0.8);  // Adjust threshold (0.7 = 70% match)
         if (matchCount >= similarityThreshold) {
             similarQuestions.push(existingQuestion);
         }
