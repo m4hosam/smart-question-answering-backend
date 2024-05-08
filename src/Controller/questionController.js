@@ -16,8 +16,8 @@ module.exports = {
             // get user_id from auth middleware
             const user_id = req.user.id
             // console.log("Controller: user_id", user_id)
-            const { question, category } = req.body
-            console.log("Controller: question, category", question, category)
+            const { question, category, question_image = '' } = req.body
+            console.log("Controller: question, category", question, category, question_image)
             // Check if question and category are provided
             if (!question || !category) {
                 return res.status(400).send("Please provide question and category")
@@ -27,7 +27,8 @@ module.exports = {
             if (similarQuestions.length > 0) {
                 return res.status(409).json({ message: "Similar question found", similarQuestions })
             }
-            const new_question = await createQuestionDB(user_id, question, category)
+
+            const new_question = await createQuestionDB(user_id, question, category, question_image)
             if (!new_question) {
                 return res.status(400).send("Error in creating question")
             }
