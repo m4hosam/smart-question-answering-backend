@@ -11,8 +11,8 @@ module.exports = {
             const user_id = req.user.id
             console.log("Controller: user_id", user_id)
             console.log("controller: role", req.user.role)
-            const { answer, question_id } = req.body
-            console.log("Controller: answer, question_id", answer, question_id)
+            const { answer, answer_image = '', question_id } = req.body
+            console.log("Controller: answer, question_id", answer, question_id, answer_image)
             if (!question_id || !answer) {
                 return res.status(400).send("Please provide question_id and answer")
             }
@@ -25,7 +25,7 @@ module.exports = {
             if (!questionDB) {
                 return res.status(404).send("Question not found")
             }
-            const new_answer = await createAnswerDB(user_id, question_id, answer)
+            const new_answer = await createAnswerDB(user_id, question_id, answer, answer_image)
             if (!new_answer) {
                 return res.status(500).send("Error in creating answer")
             }

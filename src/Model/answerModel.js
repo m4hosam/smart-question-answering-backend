@@ -1,11 +1,12 @@
 const prisma = require('../prismadb');
 
 module.exports = {
-    createAnswerDB: async (user_id, question_id, answer) => {
+    createAnswerDB: async (user_id, question_id, answer, answerImage) => {
         try {
             const newAnswer = await prisma.answer.create({
                 data: {
                     answer,
+                    answerImage,
                     user: { connect: { id: user_id } },
                     question: { connect: { id: question_id } },
                 }
